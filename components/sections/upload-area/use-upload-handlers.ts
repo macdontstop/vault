@@ -53,6 +53,56 @@ export function useUploadHandlers({
         ])
       })
 
+      // Check rate limit before starting uploads
+      try {
+        const response = await fetch('/api/files/check-limit', {
+          method: 'POST',
+        })
+
+        if (response.status === 429) {
+          const rateLimitData = await response.json()
+          const resetTime = formatDistanceToNow(new Date(rateLimitData.reset), {
+            addSuffix: true,
+          })
+          const error = `Upload limit reached. You can try again ${resetTime}`
+
+          // Update all pending uploads with the rate limit error
+          setUploads((prev) =>
+            prev.map((upload) =>
+              upload.status === 'pending'
+                ? {
+                    ...upload,
+                    status: 'error',
+                    error,
+                  }
+                : upload
+            )
+          )
+          return
+        }
+
+        if (!response.ok) {
+          throw new Error('Failed to check upload limit')
+        }
+      } catch (error) {
+        console.error('Rate limit check error:', error)
+        const errorMessage =
+          error instanceof Error ? error.message : 'Upload failed'
+        setUploads((prev) =>
+          prev.map((upload) =>
+            upload.status === 'pending'
+              ? {
+                  ...upload,
+                  status: 'error',
+                  error: errorMessage,
+                }
+              : upload
+          )
+        )
+        return
+      }
+
+      // Continue with uploads if rate limit check passes
       filesToUpload.forEach(async (file) => {
         if (file.size > 50 * 1024 * 1024) return
 
