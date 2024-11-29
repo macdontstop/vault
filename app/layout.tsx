@@ -119,7 +119,7 @@ export default function RootLayout({
         <header className="absolute top-0 right-0 p-6 z-50">
           <nav className="flex items-center gap-6 text-sm text-white/40">
             <a
-              href="https://github.com/your-username/vault"
+              href="https://github.com/macdontstop/vault"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 hover:text-white/60 transition-colors"
