@@ -3,11 +3,10 @@ declare global {
     interface ProcessEnv {
       NEXT_PUBLIC_SUPABASE_URL: string
       NEXT_PUBLIC_SUPABASE_ANON_KEY: string
-      SUPABASE_SERVICE_ROLE_KEY: string
-      AWS_REGION: string
-      AWS_ACCESS_KEY_ID: string
-      AWS_SECRET_ACCESS_KEY: string
-      AWS_BUCKET_NAME: string
+      SUPABASE_STORAGE_BUCKET: string
+      UPSTASH_REDIS_REST_URL: string
+      UPSTASH_REDIS_REST_TOKEN: string
+      UPLOADS_PER_HOUR: string
     }
   }
 }
