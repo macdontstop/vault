@@ -26,19 +26,33 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://your-domain.com'),
+  metadataBase: new URL('https://vault.jawad.sh'),
   title: {
     template: '%s | Vault',
     default: 'Vault - Simple File Sharing',
   },
   description: 'Share files with anyone, anywhere. No signup required.',
   keywords: ['file sharing', 'secure', 'simple'],
+  authors: [{ name: 'Jawad Abdulrazzaq', url: 'https://jawad.sh' }],
   openGraph: {
     type: 'website',
     title: 'Vault - Simple File Sharing',
     description: 'Share files with anyone, anywhere. No signup required.',
     siteName: 'Vault',
     locale: 'en_US',
+    url: 'https://vault.jawad.sh',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Vault - Simple File Sharing',
+        type: 'image/png',
+        secureUrl: 'https://vault.jawad.sh/opengraph-image.png',
+      },
+    ],
+    determiner: 'auto',
+    countryName: 'US',
   },
   robots: {
     index: true,
