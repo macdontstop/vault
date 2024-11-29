@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { GithubIcon } from 'lucide-react'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 
@@ -114,6 +115,20 @@ export default function RootLayout({
             strokeDasharray="1 1"
           />
         </div>
+
+        <header className="absolute top-0 right-0 p-6 z-50">
+          <nav className="flex items-center gap-6 text-sm text-white/40">
+            <a
+              href="https://github.com/your-username/vault"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 hover:text-white/60 transition-colors"
+            >
+              <GithubIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">Source</span>
+            </a>
+          </nav>
+        </header>
 
         <main id="main-content" className="relative flex-grow">
           {children}
