@@ -1,4 +1,5 @@
 import confetti from 'canvas-confetti'
+import { formatDistanceToNow } from 'date-fns'
 import { useCallback } from 'react'
 import type { ClipboardEvent } from 'react'
 
@@ -66,10 +67,6 @@ export function useUploadHandlers({
             )
           })
 
-          if (!data?.path) {
-            throw new Error('Upload failed - no file path returned')
-          }
-
           const response = await fetch('/api/files', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -81,6 +78,19 @@ export function useUploadHandlers({
               shareId,
             }),
           })
+
+          if (response.status === 429) {
+            const rateLimitData = await response.json()
+            const resetTime = formatDistanceToNow(
+              new Date(rateLimitData.reset),
+              {
+                addSuffix: true,
+              }
+            )
+            throw new Error(
+              `Upload limit reached. You can try again ${resetTime}`
+            )
+          }
 
           if (!response.ok) {
             throw new Error('Failed to save file metadata')
