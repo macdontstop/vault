@@ -15,7 +15,7 @@ import Link from 'next/link'
 import { useCallback, useState } from 'react'
 
 import type { File } from '@/lib/file-utils'
-import { getFileType } from '@/lib/file-utils'
+import { getDisplayFileType, getFileType } from '@/lib/file-utils'
 import { formatFileSize } from '@/lib/utils'
 
 import { Button } from '@/components/ui/button'
@@ -123,7 +123,7 @@ export function SharePageClient({ file }: SharePageClientProps) {
                 {
                   icon: FileTypeIcon,
                   label: 'Type',
-                  value: file.type.split('/')[1].toUpperCase(),
+                  value: getDisplayFileType(file.type),
                 },
                 {
                   icon: EyeIcon,

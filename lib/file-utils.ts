@@ -31,3 +31,14 @@ export function validateFileSize(file: File | { size: number }): {
   }
   return { isValid: true }
 }
+
+export function getDisplayFileType(type: string): string {
+  if (!type) return 'N/A'
+
+  const parts = type.split('/')
+  if (parts.length > 1) {
+    return parts[1].toUpperCase()
+  }
+  const cleanType = type.replace(/^(text\/|application\/)/, '')
+  return cleanType ? cleanType.toUpperCase() : 'N/A'
+}
